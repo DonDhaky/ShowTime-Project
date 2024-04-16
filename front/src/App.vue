@@ -6,8 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
 
-
-    <div class="wrapper">
+    <div>
       <nav>
         <RouterLink to="/home">Accueil</RouterLink>
         <RouterLink to="/profil">Mon Compte</RouterLink>
@@ -15,8 +14,8 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/register">Inscription</RouterLink>
         <RouterLink to="/whishlist">Favoris</RouterLink>
         <RouterLink to="/panier">Panier</RouterLink>
+        <RouterLink to="/admin">Admin</RouterLink>
       </nav>
-
       <RouterView />
     </div>
 
