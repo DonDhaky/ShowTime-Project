@@ -1,6 +1,12 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink, RouterView } from "vue-router";
+import ShowsList from "../src/components/ShowsList.vue";
 import { ref } from 'vue';
+
+function logout() {
+  //
+  alert("Vous êtes bien déconnecté(e) !");
+}
 
 const searchQuery = ref('');
 const selectedGenre = ref('all');
@@ -15,20 +21,24 @@ const clearPlaceholder = () => {
 </script>
 
 <template>
-
   <div class="wrapper">
     <nav>
-        <RouterLink to="/home">Accueil</RouterLink>
-        <RouterLink to="/profil">Mon Compte</RouterLink>
-        <RouterLink to="/login">Connexion</RouterLink>
-        <RouterLink to="/register">Inscription</RouterLink>
-        <RouterLink to="/whishlist">Favoris</RouterLink>
-        <RouterLink to="/panier">Panier</RouterLink>
-        <RouterLink to="/admin">Admin</RouterLink>
-      </nav>
-      <RouterView />
-    </div>
-    
+      <RouterLink to="/home">Accueil</RouterLink>
+      <RouterLink to="/profile">Mon Compte</RouterLink>
+      <RouterLink to="/login">Connexion</RouterLink>
+      <RouterLink to="/home" @click="logout">Déconnexion</RouterLink>
+      <RouterLink to="/register">Inscription</RouterLink>
+      <RouterLink to="/wishlist">Favoris</RouterLink>
+      <RouterLink to="/card">Panier</RouterLink>
+      <RouterLink to="/admindashboard">Admin</RouterLink>
+    </nav>
+    <RouterView />
+  </div>
+
+  <div class="showslist">
+    <ShowsList />
+  </div>
+  
     <nav>
       <div id="app">
         <div class="search-container">
@@ -77,14 +87,10 @@ const clearPlaceholder = () => {
       </div>
     </section>
 
-    <RouterView />
-  </div>
-
 </template>
 
 
 <style scoped>
-
 .wrapper {
   position: fixed;
   top: 0;
@@ -114,6 +120,12 @@ nav {
   text-align: center;
   padding: 1rem 0;
 }
+
+.showslist {
+  text-align: left;
+  margin-left: 30%;
+  margin-top: 10%;
+  margin-right: 2rem;
 
 /* rendre le text blanc dans la search bar */
 .white-text {
@@ -171,5 +183,6 @@ nav {
 .filter label {
   display: block;
   margin-bottom: 5px;
+
 }
 </style>

@@ -6,7 +6,6 @@ const password = ref("");
 
 const submitLogin = () => {
   //
-  alert("Vous êtes bien connecté(e) !");
 };
 </script>
 
