@@ -10,9 +10,9 @@ const submitLogin = () => {
 </script>
 
 <template>
-
+        <h1 class="title">Connexion à Los Ticketos</h1>
     <div>
-      <form @submit="submitLogin">
+      <form @submit="submitLogin" class="form">
         <label for="email">Email :</label>
         <input type="email" id="email" v-model="email" required>
         <label for="password">Mot de passe :</label>
@@ -23,4 +23,23 @@ const submitLogin = () => {
     
   </template>
 
-  
+  <style scoped>
+
+  .form {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .form label,
+  .form button {
+  margin-top: 30px;
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  </style>
