@@ -1,44 +1,81 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
 import { ref } from 'vue';
 
 const searchQuery = ref('');
+const selectedGenre = ref('all');
+const selectedGroup = ref('all');
+const selectedDate = ref('all');
 
 const clearPlaceholder = () => {
   if (searchQuery.value === 'Search...') {
     searchQuery.value = '';
   }
 };
-
 </script>
 
-
 <template>
+  <div class="wrapper">
+    <nav>
+      <RouterLink to="/home">Accueil</RouterLink>
+      <RouterLink to="/profil">Mon Compte</RouterLink>
+      <RouterLink to="/login">Connexion</RouterLink>
+      <RouterLink to="/register">Inscription</RouterLink>
+      <RouterLink to="/whishlist">Favoris</RouterLink>
+      <RouterLink to="/panier">Panier</RouterLink>
+    </nav>
+    <nav>
+      <div id="app">
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-bar"
+            placeholder="Search..."
+            v-model="searchQuery"
+            @focus="clearPlaceholder"
+            :class="{ 'white-text': searchQuery !== '' }"
+          />
+          <img src="../src/loupe.svg" alt="Search" class="img-loupe" />
+        </div>
+      </div>
+    </nav>
 
+    <section class="filters">
+      <div class="filter">
+        <label for="genre">Genre:</label>
+        <select v-model="selectedGenre">
+          <option value="all">Tous</option>
+          <option value="classique">Classique</option>
+          <option value="jazz">Jazz</option>
+          <option value="Pop Rock">Jazz</option>
+          
+        </select>
+      </div>
+      <div class="filter">
+        <label for="group">Groupe:</label>
+        <select v-model="selectedGroup">
+          <option value="all">Tous</option>
+          <option value="group1">Groupe 1</option>
+          <option value="group2">Groupe 2</option>
+          
+        </select>
+      </div>
+      <div class="filter">
+        <label for="date">Date:</label>
+        <select v-model="selectedDate">
+          <option value="all">Toutes</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          
+        </select>
+      </div>
+    </section>
 
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/home">Accueil</RouterLink>
-        <RouterLink to="/profil">Mon Compte</RouterLink>
-        <RouterLink to="/login">Connexion</RouterLink>
-        <RouterLink to="/register">Inscription</RouterLink>
-        <RouterLink to="/whishlist">Favoris</RouterLink>
-        <RouterLink to="/panier">Panier</RouterLink>
-      </nav>
-        <nav>
-          <div id="app">
-            <div class="search-container">
-              <input type="text" class="search-bar" placeholder="Search..." v-model="searchQuery" @focus="clearPlaceholder" :class="{ 'white-text': searchQuery !== '' }">
-              <img src="../src/loupe.svg" alt="loupe" class="img-loupe">
-            </div>
-          </div>
-        </nav>
-
-      <RouterView />
-    </div>
-
-
+    <RouterView />
+  </div>
 </template>
+
 
 <style scoped>
 
@@ -68,9 +105,9 @@ nav a:first-of-type {
 }
 
 nav {
-    text-align: center;
-    padding: 1rem 0;
-  }
+  text-align: center;
+  padding: 1rem 0;
+}
 
 /* rendre le text blanc dans la search bar */
 .white-text {
@@ -83,7 +120,7 @@ nav {
 }
 
 .search-bar {
-  width: 70%; 
+  width: 70%;
   margin-left: 260px;
   padding: 10px;
   padding-right: 40px;
@@ -105,10 +142,28 @@ nav {
   top: 35px;
   right: 45px;
   transform: translateY(-50%);
-  width: 30px; 
-  height: 40px; 
+  width: 30px;
+  height: 40px;
   cursor: pointer;
 }
 
+.filters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  padding: 20px;
+  background-color: #383636;
+  color: var(--color-text);
+}
 
+.filter {
+  margin-bottom: 20px;
+}
+
+.filter label {
+  display: block;
+  margin-bottom: 5px;
+}
 </style>
