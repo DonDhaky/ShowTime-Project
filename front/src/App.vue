@@ -15,15 +15,20 @@ const clearPlaceholder = () => {
 </script>
 
 <template>
+
   <div class="wrapper">
     <nav>
-      <RouterLink to="/home">Accueil</RouterLink>
-      <RouterLink to="/profil">Mon Compte</RouterLink>
-      <RouterLink to="/login">Connexion</RouterLink>
-      <RouterLink to="/register">Inscription</RouterLink>
-      <RouterLink to="/whishlist">Favoris</RouterLink>
-      <RouterLink to="/panier">Panier</RouterLink>
-    </nav>
+        <RouterLink to="/home">Accueil</RouterLink>
+        <RouterLink to="/profil">Mon Compte</RouterLink>
+        <RouterLink to="/login">Connexion</RouterLink>
+        <RouterLink to="/register">Inscription</RouterLink>
+        <RouterLink to="/whishlist">Favoris</RouterLink>
+        <RouterLink to="/panier">Panier</RouterLink>
+        <RouterLink to="/admin">Admin</RouterLink>
+      </nav>
+      <RouterView />
+    </div>
+    
     <nav>
       <div id="app">
         <div class="search-container">
@@ -74,6 +79,7 @@ const clearPlaceholder = () => {
 
     <RouterView />
   </div>
+
 </template>
 
 
