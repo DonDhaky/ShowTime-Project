@@ -1,23 +1,23 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import ShowsList from "../src/components/ShowsList.vue";
-import { ref } from 'vue';
+import { RouterLink, RouterView } from 'vue-router'
+import ShowsList from '../src/components/ShowsList.vue'
+import { ref } from 'vue'
 
 function logout() {
   //
-  alert("Vous êtes bien déconnecté(e) !");
+  alert('Vous êtes bien déconnecté(e) !')
 }
 
-const searchQuery = ref('');
-const selectedGenre = ref('all');
-const selectedGroup = ref('all');
-const selectedDate = ref('all');
+const searchQuery = ref('')
+const selectedGenre = ref('all')
+const selectedGroup = ref('all')
+const selectedDate = ref('all')
 
 const clearPlaceholder = () => {
   if (searchQuery.value === 'Search...') {
-    searchQuery.value = '';
+    searchQuery.value = ''
   }
-};
+}
 </script>
 
 <template>
@@ -32,63 +32,59 @@ const clearPlaceholder = () => {
       <RouterLink to="/card">Panier</RouterLink>
       <RouterLink to="/admindashboard">Admin</RouterLink>
     </nav>
+
+    <nav>
+    <div id="app">
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="Search..."
+          v-model="searchQuery"
+          @focus="clearPlaceholder"
+          :class="{ 'white-text': searchQuery !== '' }"
+        />
+        <img src="../src/loupe.svg" alt="Search" class="img-loupe" />
+      </div>
+    </div>
+  </nav>
+
     <RouterView />
   </div>
 
   <div class="showslist">
     <ShowsList />
   </div>
-  
-    <nav>
-      <div id="app">
-        <div class="search-container">
-          <input
-            type="text"
-            class="search-bar"
-            placeholder="Search..."
-            v-model="searchQuery"
-            @focus="clearPlaceholder"
-            :class="{ 'white-text': searchQuery !== '' }"
-          />
-          <img src="../src/loupe.svg" alt="Search" class="img-loupe" />
-        </div>
-      </div>
-    </nav>
 
-    <section class="filters">
-      <div class="filter">
-        <label for="genre">Genre:</label>
-        <select v-model="selectedGenre">
-          <option value="all">Tous</option>
-          <option value="classique">Classique</option>
-          <option value="jazz">Jazz</option>
-          <option value="Pop Rock">Jazz</option>
-          
-        </select>
-      </div>
-      <div class="filter">
-        <label for="group">Groupe:</label>
-        <select v-model="selectedGroup">
-          <option value="all">Tous</option>
-          <option value="group1">Groupe 1</option>
-          <option value="group2">Groupe 2</option>
-          
-        </select>
-      </div>
-      <div class="filter">
-        <label for="date">Date:</label>
-        <select v-model="selectedDate">
-          <option value="all">Toutes</option>
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-          <option value="2022">2022</option>
-          
-        </select>
-      </div>
-    </section>
-
+  <section class="filters">
+    <div class="filter">
+      <label for="genre">Genre:</label>
+      <select v-model="selectedGenre">
+        <option value="all">Tous</option>
+        <option value="classique">Classique</option>
+        <option value="jazz">Jazz</option>
+        <option value="Pop Rock">Jazz</option>
+      </select>
+    </div>
+    <div class="filter">
+      <label for="group">Groupe:</label>
+      <select v-model="selectedGroup">
+        <option value="all">Tous</option>
+        <option value="group1">Groupe 1</option>
+        <option value="group2">Groupe 2</option>
+      </select>
+    </div>
+    <div class="filter">
+      <label for="date">Date:</label>
+      <select v-model="selectedDate">
+        <option value="all">Toutes</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+      </select>
+    </div>
+  </section>
 </template>
-
 
 <style scoped>
 .wrapper {
@@ -126,6 +122,7 @@ nav {
   margin-left: 30%;
   margin-top: 10%;
   margin-right: 2rem;
+}
 
 /* rendre le text blanc dans la search bar */
 .white-text {

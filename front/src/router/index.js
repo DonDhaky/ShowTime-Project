@@ -6,47 +6,45 @@ import ProfilePage from '../views/ProfilePage.vue'
 import WishlistPage from '../views/WishlistPage.vue'
 import AdminPage from '../views/AdminPage.vue'
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/login",
-      name: "login",
-      component: LoginPage,
+      path: '/login',
+      name: 'login',
+      component: LoginPage
     },
 
     {
       path: '/register',
       name: 'register',
-      component: RegisterPage    
+      component: RegisterPage
     },
 
     {
       path: '/card',
       name: 'card',
-      component: CardPage    
+      component: CardPage
     },
 
     {
       path: '/profile',
       name: 'profile',
-      component: ProfilePage    
+      component: ProfilePage
     },
 
     {
       path: '/wishlist',
       name: 'wishlist',
-      component: WishlistPage    
+      component: WishlistPage
     },
 
     {
       path: '/admindashboard',
       name: 'admindashboard',
-      component: AdminPage    
+      component: AdminPage
     }
   ]
 })
 
-
-export default router;
+export default router

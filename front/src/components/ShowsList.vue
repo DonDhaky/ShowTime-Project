@@ -3,7 +3,7 @@
 
 const displayShows = () => {
   //
-};
+}
 </script>
 
 <template>
