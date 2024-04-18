@@ -1,21 +1,21 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import ShowsList from '../src/components/ShowsList.vue'
-import { ref } from 'vue'
+import { RouterLink, RouterView } from "vue-router";
+import ShowsList from "../src/components/ShowsList.vue";
+import { ref } from "vue";
 
 function logout() {
   //
-  alert('Vous êtes bien déconnecté(e) !')
+  alert("Vous êtes bien déconnecté(e) !");
 }
 
-const searchQuery = ref('')
-const selectedGenre = ref('all')
-const selectedGroup = ref('all')
-const selectedDate = ref('all')
+const searchQuery = ref("");
+const selectedGenre = ref("all");
+const selectedGroup = ref("all");
+const selectedDate = ref("all");
 
 const clearPlaceholder = () => {
-  if (searchQuery.value === 'Search...') {
-    searchQuery.value = ''
+  if (searchQuery.value === "Search...") {
+    searchQuery.value = "";
   }
 }
 
@@ -47,8 +47,7 @@ const clearPlaceholder = () => {
         />
         <img src="../src/loupe.svg" alt="Search" class="img-loupe" />
       </div>
-    </div>
-  </nav>
+    </nav>
 
     <RouterView />
   </div>
@@ -144,7 +143,9 @@ nav {
   border: 1px solid var(--color-border);
   border-radius: 5px;
   background-color: var(--color-background-soft);
-  transition: border-color 0.3s, background-color 0.3s;
+  transition:
+    border-color 0.3s,
+    background-color 0.3s;
   font-size: 16px;
 }
 
@@ -182,6 +183,5 @@ nav {
 .filter label {
   display: block;
   margin-bottom: 5px;
-
 }
 </style>

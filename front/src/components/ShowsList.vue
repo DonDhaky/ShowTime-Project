@@ -19,6 +19,7 @@ const router = useRouter();
 const goToConcert = (id) => {
   console.log(id);
   // router.push({ name: 'AffichageConcert', params: { id } });
+
 };
 </script>
 
@@ -48,6 +49,7 @@ const goToConcert = (id) => {
       <p> {{ concert.date }} </p>
       <p> {{ concert.genre }} </p>
       <p> {{ concert.price }} </p>
+
     </div>
   </div>
 </template>

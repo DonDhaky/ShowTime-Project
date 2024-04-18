@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
 // SHOWS VARIABLES
 const concerts = ref([])
@@ -48,6 +48,7 @@ const submitAddShow = () => {
   //
 }
 
+
 // MODIFIER UN CONCERT
 const submitEditShow = () => {
   //
@@ -57,6 +58,7 @@ const submitEditShow = () => {
 const submitDeleteShow = () => {
   //
 }
+
 
 
 </script>
