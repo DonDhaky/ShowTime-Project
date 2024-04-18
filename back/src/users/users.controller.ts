@@ -13,7 +13,7 @@ export class UserController {
   async createUser(@Body() createUserDto: CreateUserDto) {
     const result = await this.UserService.createUser(createUserDto);
     return {
-      msg: 'Concert successfully registered',
+      msg: 'User successfully registered',
       result,
       end: 'message end'
     };
