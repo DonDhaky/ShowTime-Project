@@ -64,8 +64,9 @@ const submitDeleteShow = () => {
 <template>
 
   <div class="concerts-container">
+    <h1>Liste des concerts :</h1>
     <div class="concert" v-for="concert in concerts" :key="concert.id">
-      <h1> {{ concert.group }} </h1>
+      <h3> {{ concert.group }} </h3>
       <p> {{ concert.date }} </p>
       <p> {{ concert.genre }} </p>
       <p> {{ concert.price }} </p>
@@ -73,8 +74,9 @@ const submitDeleteShow = () => {
   </div>
 
   <div class="users-container">
+    <h1>Liste des users :</h1>
     <div class="user" v-for="user in users" :key="user.id">
-      <h1> {{ user.username }} </h1>
+      <h3> {{ user.username }} </h3>
       <p> {{ user.email }} </p>
       <p> {{ user.is_admin }} </p>
     </div>
@@ -92,12 +94,14 @@ const submitDeleteShow = () => {
   margin-top: 10%;
 }
 
-.form label,
-.form button {
-  margin-top: 30px;
+.concerts-container, .users-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: 10%;
 }
 
-.title {
+.concerts-container h1, .users-container h1 {
   text-align: center;
 }
+
 </style>

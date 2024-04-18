@@ -53,10 +53,6 @@ const clearPlaceholder = () => {
     <RouterView />
   </div>
 
-  <div class="showslist">
-    <ShowsList />
-  </div>
-
   <section class="filters">
     <div class="filter">
       <label for="genre">Genre:</label>
@@ -85,6 +81,11 @@ const clearPlaceholder = () => {
       </select>
     </div>
   </section>
+
+  <div class="showslist">
+    <ShowsList />
+  </div>
+
 </template>
 
 <style scoped>

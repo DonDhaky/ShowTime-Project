@@ -1,5 +1,5 @@
 <script setup>
-// import { ref } from "vue";
+import { ref } from "vue";
 
 // VAR CONCERTS
 const concerts = ref([]);
@@ -54,6 +54,11 @@ const goToConcert = (id) => {
 
 <style scoped>
 .gridshows {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.concerts-container {
   display: grid;
   grid-template-columns: 1fr;
 }
