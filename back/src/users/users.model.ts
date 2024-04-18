@@ -46,32 +46,3 @@ UserSchema.pre('save', async function(next) {
 
   next();
 });
-
-
-/*
-// user.model.ts
-import * as mongoose from 'mongoose';
-
-export const UserSchema = new mongoose.Schema(
-  {
-    is_admin: {type: String, required: true,},
-    username: {type: String, required: true, unique: true,},
-    email: {type: String, required: true, unique: true,},
-    password: {type: String, required: true,},
-    favorite_groups: {type: String,},
-    wishlist: {type: String,},
-    booked: {type: String,},
-  },
-  { timestamps: true }
-);
-
-export interface User extends mongoose.Document {
-    is_admin: string;
-    username: string;
-    email: string;
-    password: string;
-    favorite_groups: string;
-    wishlist: string;
-    booked: string;
-}
-*/

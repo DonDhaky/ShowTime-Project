@@ -7,57 +7,17 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
+  //POST method
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    /*
-  const title = concertTitle;
-  const genre = concertGenre;
-  const group = concertGroup;
-  const date = concertDate;
-  const price = concertPrice;
-  const number_of_bookings = concertBooking;
-  */
-
-  const newUser = new this.userModel(
-    createUserDto
-    /*{
-    title,
-    genre,
-    group,
-    date,
-    price,
-    number_of_bookings,
-  }*/
-  );
-  await newUser.save();
-  return newUser;
-}
-  /*
-  async createtUser(userAdmin: string, userName: string, userEmail: string, userPassword: string, userFav: string, userWish: string, userBooked: string): Promise<User> {
-    const is_admin = userAdmin;
-    const username = userName;
-    const email = userEmail;
-    const hashedPassword = await bcrypt.hash(userPassword, 10);
-    const favorite_groups = userFav;
-    const wishlist = userWish;
-    const booked = userBooked;
-
-    const newUser = new this.userModel({
-        is_admin,
-        username,
-        email,
-        password: hashedPassword,
-        favorite_groups,
-        wishlist,
-        booked,
-    });
+    const newUser = new this.userModel(createUserDto);
     await newUser.save();
     return newUser;
   }
-*/
 
+  //GET methods
   async getUsers(): Promise<User[]> {
     return await this.userModel.find().exec();
   }
@@ -68,6 +28,7 @@ export class UsersService {
     return await this.userModel.findOne({ email }).exec();
   }
 
+  //UPDATE methods
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     if (updateUserDto.password) {
         const salt = await bcrypt.genSalt();
@@ -85,6 +46,7 @@ export class UsersService {
     return await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });
   }
 
+  //DELETE method
   async deleteUser(id: string): Promise<User> {
     return await this.userModel.findByIdAndDelete(id).exec();
   }

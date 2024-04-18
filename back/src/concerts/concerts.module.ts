@@ -1,13 +1,13 @@
 import { Module } from "@nestjs/common"
 import { MongooseModule } from "@nestjs/mongoose"
-import { ConcertsController } from "./concerts.controller"
+import { ConcertController } from "./concerts.controller"
 import { ConcertSchema } from "./concerts.model"
-import { ConcertsService } from "./concerts.service"
+import { ConcertService } from "./concerts.service"
 
 @Module({
     imports: [MongooseModule.forFeature([{ name: "Concert", schema: ConcertSchema }])],
-    controllers: [ConcertsController],
-    providers: [ConcertsService],
-    exports: [ConcertsService],
+    controllers: [ConcertController],
+    providers: [ConcertService],
+    exports: [ConcertService],
 })
-export class ConcertsModule {}
+export class ConcertModule {}

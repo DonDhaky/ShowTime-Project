@@ -6,39 +6,20 @@ import { CreateConcertDto } from './dto/create-concert.dto';
 import { UpdateConcertDto } from './dto/update-concert.dto';
 
 @Injectable()
-export class ConcertsService {
+export class ConcertService {
   constructor(@InjectModel('Concert') private readonly concertModel: Model<ConcertDocument>) {}
 
-  //async createtConcert(concertTitle: string, concertGenre: string, concertGroup: string, concertDate: string, concertPrice: string, concertBooking: string): Promise<Concert> {
-    async createtConcert(createConcertDto: CreateConcertDto): Promise<Concert> {
-      /*
-    const title = concertTitle;
-    const genre = concertGenre;
-    const group = concertGroup;
-    const date = concertDate;
-    const price = concertPrice;
-    const number_of_bookings = concertBooking;
-    */
-
-    const newConcert = new this.concertModel(
-      createConcertDto
-      /*{
-      title,
-      genre,
-      group,
-      date,
-      price,
-      number_of_bookings,
-    }*/
-    );
+  //POST method
+  async createtConcert(createConcertDto: CreateConcertDto): Promise<Concert> {
+    const newConcert = new this.concertModel(createConcertDto);
     await newConcert.save();
     return newConcert;
   }
 
+  //GET methods
   async getConcerts(): Promise<Concert[]> {
     return await this.concertModel.find().exec();
   }
-
   async getConcertById(id: string): Promise<Concert> {
     return await this.concertModel.findById(id).exec();
   }
@@ -47,8 +28,9 @@ export class ConcertsService {
   }
   async getConcertByGroup(group: string): Promise<Concert[]> {
     return await this.concertModel.find({ group }).exec();
-}
+  }
 
+  //UPDATE methods
   async updateConcert(id: string, updateConcertDto: UpdateConcertDto): Promise<Concert> {
     return this.concertModel.findByIdAndUpdate(id, updateConcertDto, { new: true });
   }
@@ -56,6 +38,7 @@ export class ConcertsService {
     return await this.concertModel.findByIdAndUpdate(id, updateConcertDto, { new: true });
   }
 
+  //DELETE method
   async deleteConcert(id: string): Promise<Concert> {
     return await this.concertModel.findByIdAndDelete(id).exec();
   }
