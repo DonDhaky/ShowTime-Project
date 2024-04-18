@@ -18,6 +18,7 @@ const clearPlaceholder = () => {
     searchQuery.value = ''
   }
 }
+
 </script>
 
 <template>
@@ -39,7 +40,7 @@ const clearPlaceholder = () => {
         <input
           type="text"
           class="search-bar"
-          placeholder="Search..."
+          placeholder="Faites votre recherche ici..."
           v-model="searchQuery"
           @focus="clearPlaceholder"
           :class="{ 'white-text': searchQuery !== '' }"
