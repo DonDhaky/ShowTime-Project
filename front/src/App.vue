@@ -17,7 +17,8 @@ const clearPlaceholder = () => {
   if (searchQuery.value === "Search...") {
     searchQuery.value = "";
   }
-};
+}
+
 </script>
 
 <template>
@@ -34,26 +35,21 @@ const clearPlaceholder = () => {
     </nav>
 
     <nav>
-      <div id="app">
-        <div class="search-container">
-          <input
-            type="text"
-            class="search-bar"
-            placeholder="Faites votre recherche ici..."
-            v-model="searchQuery"
-            @focus="clearPlaceholder"
-            :class="{ 'white-text': searchQuery !== '' }"
-          />
-          <img src="../src/loupe.svg" alt="Search" class="img-loupe" />
-        </div>
+    <div id="app">
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="Faites votre recherche ici..."
+          v-model="searchQuery"
+          @focus="clearPlaceholder"
+          :class="{ 'white-text': searchQuery !== '' }"
+        />
+        <img src="../src/loupe.svg" alt="Search" class="img-loupe" />
       </div>
     </nav>
 
     <RouterView />
-  </div>
-
-  <div class="showslist">
-    <ShowsList />
   </div>
 
   <section class="filters">
@@ -84,6 +80,11 @@ const clearPlaceholder = () => {
       </select>
     </div>
   </section>
+
+  <div class="showslist">
+    <ShowsList />
+  </div>
+
 </template>
 
 <style scoped>
