@@ -44,9 +44,10 @@ const clearPlaceholder = () => {
           v-model="searchQuery"
           @focus="clearPlaceholder"
           :class="{ 'white-text': searchQuery !== '' }"
-        />
+          />
         <img src="../src/loupe.svg" alt="Search" class="img-loupe" />
       </div>
+    </div>
     </nav>
 
     <RouterView />
