@@ -1,13 +1,13 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const email = ref('')
-const password = ref('')
+const email = ref("");
+const password = ref("");
 
 const submitRegister = () => {
   //
-  alert('Vous êtes bien inscrit(e) sur Los Ticketos !')
-}
+  alert("Vous êtes bien inscrit(e) sur Los Ticketos !");
+};
 </script>
 
 <template>
