@@ -13,19 +13,16 @@ export class User {
   is_admin: string;
 
   @Prop()
-  username: string;
-
-  @Prop()
   email: string;
 
   @Prop()
   password: string;
 
   @Prop()
-  favorite_groups: string;
+  wishlist: string;
 
   @Prop()
-  wishlist: string;
+  notify: string;
 
   @Prop()
   booked: string;

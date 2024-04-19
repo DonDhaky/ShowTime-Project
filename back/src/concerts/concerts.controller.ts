@@ -1,4 +1,13 @@
-import { Body, Controller, Param, Post, Get, Put, Patch, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  Post,
+  Get,
+  Put,
+  Patch,
+  Delete,
+} from '@nestjs/common';
 import { ConcertService } from './concerts.service';
 import { Concert } from './concerts.model';
 import { CreateConcertDto } from './dto/create-concert.dto';
@@ -15,7 +24,7 @@ export class ConcertController {
     return {
       msg: 'Concert successfully registered',
       result,
-      end: 'message end'
+      end: 'message end',
     };
   }
 
@@ -39,11 +48,17 @@ export class ConcertController {
 
   //UPDATE routes
   @Put(':id')
-  async updateConcert(@Param('id') id: string, @Body() updateConcertDto: UpdateConcertDto) {
+  async updateConcert(
+    @Param('id') id: string,
+    @Body() updateConcertDto: UpdateConcertDto,
+  ) {
     return await this.ConcertService.updateConcert(id, updateConcertDto);
   }
   @Patch(':id')
-  async patchConcert(@Param('id') id: string, @Body() updateConcertDto: UpdateConcertDto) {
+  async patchConcert(
+    @Param('id') id: string,
+    @Body() updateConcertDto: UpdateConcertDto,
+  ) {
     return await this.ConcertService.patchConcert(id, updateConcertDto);
   }
 

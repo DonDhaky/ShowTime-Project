@@ -1,4 +1,14 @@
-import { Body, Controller, Param, Post, Get, Put, Patch, Delete, NotFoundException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  Post,
+  Get,
+  Put,
+  Patch,
+  Delete,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserService } from './users.service';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,7 +25,7 @@ export class UserController {
     return {
       msg: 'User successfully registered',
       result,
-      end: 'message end'
+      end: 'message end',
     };
   }
 
@@ -35,11 +45,17 @@ export class UserController {
 
   //UPDATE routes
   @Put(':id')
-  async updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  async updateUser(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return await this.UserService.updateUser(id, updateUserDto);
   }
   @Patch(':id')
-  async patchUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  async patchUser(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return await this.UserService.patchUser(id, updateUserDto);
   }
 

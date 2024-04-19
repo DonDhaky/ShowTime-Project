@@ -31,19 +31,21 @@ export class UserService {
   //UPDATE methods
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     if (updateUserDto.password) {
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(updateUserDto.password, salt);
-        updateUserDto.password = hashedPassword;
-      }
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(updateUserDto.password, salt);
+      updateUserDto.password = hashedPassword;
+    }
     return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });
   }
   async patchUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     if (updateUserDto.password) {
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(updateUserDto.password, salt);
-        updateUserDto.password = hashedPassword;
-      }
-    return await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(updateUserDto.password, salt);
+      updateUserDto.password = hashedPassword;
+    }
+    return await this.userModel.findByIdAndUpdate(id, updateUserDto, {
+      new: true,
+    });
   }
 
   //DELETE method

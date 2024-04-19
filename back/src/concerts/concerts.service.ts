@@ -23,9 +23,6 @@ export class ConcertService {
   async getConcertById(id: string): Promise<Concert> {
     return await this.concertModel.findById(id).exec();
   }
-  async getConcertByTitle(title: string): Promise<Concert> {
-    return await this.concertModel.findOne({ title }).exec();
-  }
   async getConcertByGroup(group: string): Promise<Concert[]> {
     return await this.concertModel.find({ group }).exec();
   }
