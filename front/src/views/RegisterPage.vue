@@ -1,13 +1,39 @@
 <script setup>
 import { ref } from "vue";
 
-const email = ref("");
-const password = ref("");
+const registerFormData = ref({
+  email: '',
+  password: ''
+});
 
-const submitRegister = () => {
-  //
-  alert("Vous êtes bien inscrit(e) sur Los Ticketos !");
+const submitRegister = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/users/signup',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: JSON.stringify(registerFormData.value)
+    });
+
+    const data = await response.json();
+    console.log(data);
+    if (!response.ok) {
+      throw new Error("Une erreur a été rencontrée lors de la tentative d'inscription");
+    }
+    
+    console.log('Utilisateur inscrit avec succès !');
+    alert('Vous vous êtes bien inscrit(e) sur Los Ticketos !');
+    // window.location.href = 'http://localhost:5173/home';
+  } 
+  
+  catch (error) {
+    console.error(error);
+    alert("L'inscription n'a pas pu être validée, veuillez réessayer !");
+  }
 };
+
 </script>
 
 <template>
