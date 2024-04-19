@@ -13,6 +13,8 @@ const number_of_bookings = ref('')
 const users = ref([])
 const email = ref('')
 const is_admin = ref('')
+// const wishlist = ref([])
+// const booked = ref([])
 
 
 // AFFICHER LES USERS //////////////////////////////////////////////////////////////////////////// 

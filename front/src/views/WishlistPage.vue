@@ -17,17 +17,27 @@ const displayFavorites = async () => {
   console.log('Liste des concerts en favoris :', concerts.value);
 };
 
+const submitDeleteFromWishlist = async () => {
+  //
+};
+
+const submitBookFromWishlist = async () => {
+  //
+};
+
 </script>
 
 <template>
   
   <div class="concerts-container">
-    <h1>Liste des favoris :</h1>
+    <h1>Votre wishlist :</h1>
     <div class="concert" v-for="concert in concerts" :key="concert.id">
       <p>Nom du groupe : {{ concert.group }}</p>
       <p>Date du concert : {{ concert.date }}</p>
       <p>Genre : {{ concert.genre }}</p>
-      <button @click="submitDeleteShow">Supprimer des favoris</button>
+      <p>Prix : {{ concert.price }}</p>
+      <button @click="submitDeleteFromWishlist">Supprimer de la wishlist</button>
+      <button @click="submitBookFromWishlist">Réserver</button>
     </div>
   </div>
 
