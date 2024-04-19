@@ -10,13 +10,12 @@ export class CreateUserDto {
   @IsString()
   password: string;
 
-  @IsString()
-  favorite_groups: string;
+  @IsString({ each: true})
+  wishlist: string[];
 
-  @IsString()
-  wishlist: string;
+  @IsString({ each: true})
+  notify: string[];
 
-  @IsString()
-  booked: string;
-
+  @IsString({ each: true})
+  booked: string[];
 }
