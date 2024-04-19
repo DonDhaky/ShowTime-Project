@@ -4,9 +4,6 @@ export class CreateUserDto {
   @IsString()
   is_admin: string;
 
-  @IsString()
-  username: string;
-
   @IsEmail()
   email: string;
 

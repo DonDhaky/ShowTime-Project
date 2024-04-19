@@ -28,10 +28,6 @@ export class ConcertController {
   async getConcertById(@Param('id') id: string): Promise<Concert> {
     return await this.ConcertService.getConcertById(id);
   }
-  @Get('/bytitle/:title')
-  async getConcertByTitle(@Param('title') title: string): Promise<Concert> {
-    return await this.ConcertService.getConcertByTitle(title);
-  }
   @Get('/bygroup/:group')
   async getConcertByGroup(@Param('group') group: string): Promise<Concert[]> {
     return await this.ConcertService.getConcertByGroup(group);

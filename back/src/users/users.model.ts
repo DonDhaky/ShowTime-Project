@@ -13,9 +13,6 @@ export class User {
   is_admin: string;
 
   @Prop()
-  username: string;
-
-  @Prop()
   email: string;
 
   @Prop()

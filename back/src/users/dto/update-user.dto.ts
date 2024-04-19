@@ -6,10 +6,6 @@ export class UpdateUserDto {
   is_admin?: string;
 
   @IsOptional()
-  @IsString()
-  username?: string;
-
-  @IsOptional()
   @IsEmail()
   email?: string;
 
