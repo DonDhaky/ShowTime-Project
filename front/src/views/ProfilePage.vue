@@ -1,76 +1,81 @@
-<template>
-  <div>
-    <div v-if="!loggedIn">
-      <form @submit.prevent="submitLogin" class="form">
-        <h1 class="title">Mon compte</h1>
-        <label for="email">Email :</label>
-        <input type="email" id="email" v-model="email" required />
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" v-model="password" required />
-        <button type="submit">Se connecter</button>
-        <button @click="closeForm" class="close-button">X</button>
-      </form>
-    </div>
-    <div v-else>
-      <h2>Bienvenue !</h2>
-      <p>Email: {{ email }}</p>
-      <p>Mot de passe: {{ password }}</p>
-      <button @click="deleteAccount">Supprimer le compte</button>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref } from "vue";
 
 const email = ref("");
 const password = ref("");
-const loggedIn = ref(false);
 
-const submitLogin = async () => {
-  const response = await fetch('http://localhost:3000/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value
-    })
-  });
-  if (response.ok) {
-    loggedIn.value = true;
-  } else {
-   
-    console.error('Erreur de connexion');
+const editAccount = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/users', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value
+      })
+    });
+    if (response.ok) {
+      console.log('booh');
+    } else {
+      console.error('Erreur lors de la modification du compte');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la modification du compte:', error.message);
   }
 };
 
 const deleteAccount = async () => {
-  const response = await fetch('http://localhost:3000/users', {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: email.value
-    })
-  });
-  if (response.ok) {
-    email.value = "";
-    password.value = "";
-    loggedIn.value = false;
-  } else {
-  
-    console.error('Erreur de suppression du compte');
+  try {
+    const response = await fetch('http://localhost:3000/users', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email.value
+      })
+    });
+    if (response.ok) {
+      console.log('Compte supprimé avec succès');
+      // modif
+      email.value = "";
+      password.value = "";
+    } else {
+      console.error('Erreur');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la suppression du compte:', error.message);
   }
 };
 
 const closeForm = () => {
-  // Fermer la fenêtre du formulaire 
-  loggedIn.value = true;
+
+
 };
 </script>
+<template>
+  <div>
+    <div class="form">
+      <h1 class="title">Mon compte</h1>
+      <div class="input-container">
+        <label for="email">Email :</label>
+        <input type="email" id="email" v-model="email" required />
+      </div>
+      <div class="input-container">
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" v-model="password" required />
+      </div>
+      <div class="button-container">
+        <button @click="editAccount">Modifier</button>
+        <button @click="deleteAccount">Supprimer le compte</button>
+      </div>
+      <button @click="closeForm" class="close-button">X</button>
+    </div>
+  </div>
+</template>
+
 
 <style scoped>
 .form {
@@ -111,7 +116,7 @@ const closeForm = () => {
 
 .button-container button {
   padding: 10px 20px;
-  background-color: hsla(160, 100%, 37%, 1);
+  background-color: rgb(107, 103, 103);
   color: white;
   border: none;
   border-radius: 4px;
