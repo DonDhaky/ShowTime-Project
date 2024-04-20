@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Get, Put, Patch, Delete, NotFoundException } from '@nestjs/common';
+import { Body, Controller, Param, Post, Get, Put, Patch, Delete, NotFoundException, Res } from '@nestjs/common';
 import { UserService } from './users.service';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -10,13 +10,23 @@ export class UserController {
 
   //POST route
   @Post('/signup')
-  async createUser(@Body() createUserDto: CreateUserDto) {
-    const result = await this.UserService.createUser(createUserDto);
-    return {
-      msg: 'User successfully registered',
-      result,
-      end: 'message end'
-    };
+  async createUser(@Body() createUserDto: CreateUserDto, @Res() res) {
+    try {
+      const result = await this.UserService.createUser(createUserDto);
+      res.status(201).json({
+        result,
+      //return {
+        msg: 'User successfully registered',
+        end: 'message end'
+    });
+      //};
+    } catch (error) {
+      if (error.message === 'Email already exists') {
+        res.status(409).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: error.message });
+      }
+    }
   }
 
   //GET routes

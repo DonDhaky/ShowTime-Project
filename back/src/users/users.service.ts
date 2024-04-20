@@ -13,8 +13,16 @@ export class UserService {
   //POST method
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const newUser = new this.userModel(createUserDto);
-    await newUser.save();
-    return newUser;
+    try {
+      await newUser.save();
+      return newUser;
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new Error('Email already exists');
+      } else {
+        throw error;
+      }
+    }
   }
 
   //GET methods

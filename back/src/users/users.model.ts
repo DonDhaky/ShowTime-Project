@@ -12,7 +12,7 @@ export class User {
   @Prop()
   is_admin: string;
 
-  @Prop()
+  @Prop({ unique: true })
   email: string;
 
   @Prop()
