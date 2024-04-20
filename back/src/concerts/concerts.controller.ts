@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Param,
-  Post,
-  Get,
-  Put,
-  Patch,
-  Delete,
-} from '@nestjs/common';
+import { Body, Controller, Param, Post, Get, Put, Patch, Delete } from '@nestjs/common';
 import { ConcertService } from './concerts.service';
 import { Concert } from './concerts.model';
 import { CreateConcertDto } from './dto/create-concert.dto';
@@ -24,7 +15,7 @@ export class ConcertController {
     return {
       msg: 'Concert successfully registered',
       result,
-      end: 'message end',
+      end: 'message end'
     };
   }
 
@@ -37,10 +28,6 @@ export class ConcertController {
   async getConcertById(@Param('id') id: string): Promise<Concert> {
     return await this.ConcertService.getConcertById(id);
   }
-  @Get('/bytitle/:title')
-  async getConcertByTitle(@Param('title') title: string): Promise<Concert> {
-    return await this.ConcertService.getConcertByTitle(title);
-  }
   @Get('/bygroup/:group')
   async getConcertByGroup(@Param('group') group: string): Promise<Concert[]> {
     return await this.ConcertService.getConcertByGroup(group);
@@ -48,17 +35,11 @@ export class ConcertController {
 
   //UPDATE routes
   @Put(':id')
-  async updateConcert(
-    @Param('id') id: string,
-    @Body() updateConcertDto: UpdateConcertDto,
-  ) {
+  async updateConcert(@Param('id') id: string, @Body() updateConcertDto: UpdateConcertDto) {
     return await this.ConcertService.updateConcert(id, updateConcertDto);
   }
   @Patch(':id')
-  async patchConcert(
-    @Param('id') id: string,
-    @Body() updateConcertDto: UpdateConcertDto,
-  ) {
+  async patchConcert(@Param('id') id: string, @Body() updateConcertDto: UpdateConcertDto) {
     return await this.ConcertService.patchConcert(id, updateConcertDto);
   }
 
