@@ -128,6 +128,7 @@ const addShow = () => {
 // SUPPRIMER UN CONCERT
 const submitDeleteShow = async (id) => {
 
+
   try {
     const response = await fetch(`http://localhost:3000/concerts/${id}`, {
       method: "DELETE",
@@ -179,8 +180,11 @@ const submitDeleteShow = async (id) => {
         <button @click="submitEditUser(user._id)">Modifier</button>
         <button @click="submitDeleteUser(user._id)">Supprimer</button>
       </div>
+
     </div>
+    
   </div>
+
 </template>
 
 <style scoped>
