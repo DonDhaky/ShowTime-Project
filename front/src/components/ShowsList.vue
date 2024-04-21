@@ -6,10 +6,10 @@ const concerts = ref([]);
 
 // AFFICHER LES CONCERTS
 const fetchConcerts = async () => {
-  const response1 = await fetch('http://localhost:3000/concerts');
+  const response1 = await fetch("http://localhost:3000/concerts");
   const data = await response1.json();
   concerts.value = data;
-  console.log('Liste des concerts :', concerts.value);
+  console.log("Liste des concerts :", concerts.value);
 };
 
 // POUR ME RENDRE SUR UNE VUE D'UN CONCERT
@@ -19,7 +19,6 @@ const router = useRouter();
 const goToConcert = (id) => {
   console.log(id);
   // router.push({ name: 'AffichageConcert', params: { id } });
-
 };
 </script>
 
@@ -44,12 +43,16 @@ const goToConcert = (id) => {
   </div> -->
 
   <div class="concerts-container">
-    <div class="concert" v-for="concert in concerts" :key="concert.id" @click="goToConcert(concert.id)">
-      <h1> {{ concert.group }} </h1>
-      <p> {{ concert.date }} </p>
-      <p> {{ concert.genre }} </p>
-      <p> {{ concert.price }} </p>
-
+    <div
+      class="concert"
+      v-for="concert in concerts"
+      :key="concert.id"
+      @click="goToConcert(concert.id)"
+    >
+      <h1>{{ concert.group }}</h1>
+      <p>{{ concert.date }}</p>
+      <p>{{ concert.genre }}</p>
+      <p>{{ concert.price }}</p>
     </div>
   </div>
 </template>

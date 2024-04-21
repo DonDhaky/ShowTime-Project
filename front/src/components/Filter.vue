@@ -1,10 +1,5 @@
 <script >
-import Filter from './components/Filter.vue';
-
 export default {
-  components: {
-    Filter,
-  },
   data() {
     return {
       searchQuery: '',
@@ -35,55 +30,38 @@ export default {
 </script>
 
 <template>
-  <div class="wrapper">
-    <nav>
-      <RouterLink to="/home">Accueil</RouterLink>
-      <RouterLink to="/profile">Mon Compte</RouterLink>
-      <RouterLink to="/login">Connexion</RouterLink>
-      <RouterLink to="/home" @click="logout">Déconnexion</RouterLink>
-      <RouterLink to="/register">Inscription</RouterLink>
-      <RouterLink to="/wishlist">Favoris</RouterLink>
-      <RouterLink to="/card">Panier</RouterLink>
-      <RouterLink to="/admindashboard">Admin</RouterLink>
+      <nav>
+      <div id="app">
+        <div class="search-container">
+      <input
+        type="text"
+        class="search-bar"
+        placeholder="Faites votre recherche ici..."
+        v-model="searchQuery"
+        @focus="clearPlaceholder"
+        :class="{ 'white-text': searchQuery !== '' }"
+      />
+      <img src="../../src/loupe.svg" alt="Search" class="img-loupe" />
+    </div>
+    <div class="users-concerts-dashboard-grid">
+    <div class="concerts-container">
+      <h1>Liste des concerts :</h1>
+      <div class="concert" v-for="concert in filteredConcerts" :key="concert._id">
+        <p>Nom du groupe :</p>
+        <input v-model="concert.group" />
+        <p>Date du concert :</p>
+        <input v-model="concert.date" />
+        <p>Genre :</p>
+        <input v-model="concert.genre" />
+        <p>Prix :</p>
+        <input v-model="concert.price" />
+        <!-- <button @click="submitEditShow(concert._id)">Modifier</button>
+        <button @click="submitDeleteShow(concert._id)">Supprimer</button> -->
+      </div>
+    </div>
+  </div>
+</div>
     </nav>
-
-<Filter/>
-
-    <RouterView />
-  </div>
-
-  <section class="filters">
-    <div class="filter">
-      <label for="genre">Genre:</label>
-      <select v-model="selectedGenre">
-        <option value="all">Tous</option>
-        <option value="classique">Classique</option>
-        <option value="jazz">Jazz</option>
-        <option value="Pop Rock">Jazz</option>
-      </select>
-    </div>
-    <div class="filter">
-      <label for="group">Groupe:</label>
-      <select v-model="selectedGroup">
-        <option value="all">Tous</option>
-        <option value="group1">Groupe 1</option>
-        <option value="group2">Groupe 2</option>
-      </select>
-    </div>
-    <div class="filter">
-      <label for="date">Date:</label>
-      <select v-model="selectedDate">
-        <option value="all">Toutes</option>
-        <option value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-      </select>
-    </div>
-  </section>
-
-  <div class="showslist">
-    <ShowsList />
-  </div>
 </template>
 
 <style scoped>
