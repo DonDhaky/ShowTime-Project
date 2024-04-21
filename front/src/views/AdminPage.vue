@@ -1,228 +1,185 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted,ref } from "vue";
 
+onMounted(async () => {
+  console.log('toto');
+  await fetchUsers();
+  await fetchConcerts()
+  // await deleteAccount();
+});
 // SHOWS VARIABLES
-const concerts = ref([])
-const addShowFormData = ref({
-  group: '',
-  date: '',
-  genre: '',
-  price: '',
-  number_of_bookings: ''
-})
+const concerts = ref([]);
+const genre = ref("");
+const group = ref("");
+const date = ref("");
+const price = ref("");
+const number_of_bookings = ref("");
 
 // USERS VARIABLES
-const users = ref([])
+const users = ref([]);
+const email = ref("");
+const username = ref("");
+const is_admin = ref("");
 
-
-// AFFICHER LES USERS //////////////////////////////////////////////////////////////////////////// 
+// AFFICHER LES USERS ////////////////////////////////////////////////////////////////////////////
 const fetchUsers = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/users');
-    if (!response.ok) {
-      throw new Error("Une erreur a été rencontrée lors de la tentative de récupération des utilisateurs.");
-    }
-    const dataUsers = await response.json();
-    users.value = dataUsers;
-    console.log('Liste des users :', users.value);
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await fetch("http://localhost:3000/users");
+  const data = await response.json();
+  users.value = data;
+  console.log("Liste des users :", users.value);
 };
 
-// EDIT UN USER //////////////////////////////////////////////////////// A MODIFIER
-const submitEditUser = async (user) => {
+// EDIT UN USER
+const submitEditUser = async (id) => {
+  console.log(id,"id");
+  const user = users.value.find((user) => user._id === id);
+  console.log(user,"");
   try {
-    const response = await fetch(`http://localhost:3000/users/${user.id}`, {
-      method: 'PUT',
+    const response = await fetch(`http://localhost:3000/users/${id}`, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify({
+        email: user.email,
+        username: user.username,
+        is_admin: user.is_admin,
+      }),
     });
-    if (!response.ok) {
-      throw new Error("Une erreur a été rencontrée lors de la tentative de modification du user.");
+    if (response.ok) {
+      console.log('ok');
+      await fetchUsers(); 
+      // const data = await response.json();
+      // email.value = data.email;
+    } else {
+      console.error("Erreur lors de la modification du compte");
     }
-    console.log('Utilisateur modifié :', user);
-    alert('Le user a été modifié avec succès !');
   } catch (error) {
-    console.log(error);
+    console.error("Erreur lors de la modification du compte:", error.message);
   }
 };
 
-// DELETE UN USER //////////////////////////////////////////////////////// A MODIFIER
-const submitDeleteUser = async (user) => {
+// DELETE UN USER
+const submitDeleteUser = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/users/${user.id}`, {
-      method: 'DELETE',
+    const response = await fetch(`http://localhost:3000/users/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify({
+      //   email: email.value,
+      // }),
     });
-    if (!response.ok) {
-      throw new Error("Une erreur a été rencontrée lors de la tentative de suppression du user.");
+    if (response.ok) {
+      await fetchUsers(); 
+      console.log("Compte supprimé avec succès");
+    } else {
+      console.error("Erreur");
     }
-    const index = users.value.indexOf(user); // A CHANGER ??
-    users.value.splice(index, 1); // A CHANGER ??
-    console.log('User supprimé :', user);
-    alert('Le user a été supprimé avec succès !');
   } catch (error) {
-    console.log(error);
+    console.error("Erreur lors de la suppression du compte:", error.message);
   }
 };
-
 
 // AFFICHER LES CONCERTS //////////////////////////////////////////////////////////////////////////////
 const fetchConcerts = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/concerts');
-    if (!response.ok) {
-      throw new Error("Une erreur a été rencontrée lors de la tentative de récupération des concerts.");
-    }
-    const dataConcerts = await response.json();
-    concerts.value = dataConcerts;
-    console.log('Liste des concerts :', concerts.value);
-  } catch (error) {
-    console.log(error);
-  }
+  const response1 = await fetch("http://localhost:3000/concerts");
+  const data = await response1.json();
+  concerts.value = data;
+  console.log("Liste des concerts :", concerts.value);
 };
 
-// AJOUTER UN CONCERT
-const submitAddShow = () => {
-  const formData = new URLSearchParams();
-  formData.append('group', addShowFormData.value.group);
-  formData.append('date', addShowFormData.value.date);
-  formData.append('genre', addShowFormData.value.genre);
-  formData.append('price', addShowFormData.value.price);
-  formData.append('number_of_bookings', addShowFormData.value.number_of_bookings);
-
-
-  fetch('http://localhost:3000/concerts/schedule', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: formData
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error("Une erreur a été rencontrée lors de la tentative d'ajout du concert.");
-    }
-    console.log('Concert ajouté avec succès !');
-    alert('Le concert a été ajouté avec succès !');
-    window.location.href = 'http://localhost:5173/admindashboard';
-  })
-  .catch(error => {
-    console.log(error);
-  });
-};
-
-// MODIFIER UN CONCERT //////////////////////////////////////////////////////// A MODIFIER
-const submitEditShow = async (concert) => {
+// MODIFIER UN CONCERT
+const submitEditShow =  async (id) => {
+  console.log(id,"id");
+  const concert = concerts.value.find((concert) => concert._id === id);
+  console.log(concert,"consertconsert");
   try {
-    const response = await fetch(`http://localhost:3000/concerts/${concert.id}`, {
-      method: 'PUT',
+    const response = await fetch(`http://localhost:3000/concerts/${id}`, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(concert),
+      body: JSON.stringify({
+        genre: concert.genre,
+        group: concert.group,
+        price: concert.price,
+        date: concert.date
+      }),
     });
-    if (!response.ok) {
-      throw new Error("Une erreur a été rencontrée lors de la tentative de modification du concert.");
+    if (response.ok) {
+      console.log('ok');
+      await fetchConcerts(); 
+      // const data = await response.json();
+      // email.value = data.email;
+    } else {
+      console.error("Erreur lors de la modification des concerts");
     }
-    console.log('Concert modifié :', concert);
-    alert('Le concert a été modifié avec succès !');
   } catch (error) {
-    console.log(error);
+    console.error("Erreur lors de la modification des concerts:", error.message);
   }
 };
+// AJOUTER UN CONCERT
+const addShow = () => {
+  //
+};
 
-// SUPPRIMER UN CONCERT //////////////////////////////////////////////////////// A MODIFIER
-const submitDeleteShow = async (concert) => {
+// SUPPRIMER UN CONCERT
+const submitDeleteShow = async (id) => {
+
+
   try {
-    const response = await fetch(`http://localhost:3000/concerts/${concert.id}`, {
-      method: 'DELETE',
+    const response = await fetch(`http://localhost:3000/concerts/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+ 
     });
-    if (!response.ok) {
-      throw new Error("Une erreur a été rencontrée lors de la tentative de suppression du concert.");
+    if (response.ok) {
+      console.log('ok');
+      await fetchConcerts(); 
+      console.log("concert supprimé avec succès");
+    } else {
+      console.error("Erreur");
     }
-    const index = concerts.value.indexOf(concert); // A CHANGER ??
-    concerts.value.splice(index, 1); // A CHANGER ??
-    console.log('Concert supprimé :', concert);
-    alert('Le concert a été supprimé avec succès !');
   } catch (error) {
-    console.log(error);
+    console.error("Erreur lors de la suppression du concert:", error.message);
   }
 };
-
-fetchUsers();
-fetchConcerts();
-
 </script>
 
 <template>
-
   <div class="users-concerts-dashboard-grid">
     <div class="concerts-container">
       <h1>Liste des concerts :</h1>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Nom du groupe</th>
-            <th>Date du concert</th>
-            <th>Genre</th>
-            <th>Prix</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="concert in concerts" :key="concert.id">
-            <td><input v-model="concert.group" required /></td>
-            <td><input v-model="concert.date" required /></td>
-            <td><input v-model="concert.genre" required /></td>
-            <td><input v-model="concert.price" type="number" required /></td>
-            <td><button @click="submitEditShow(concert)">Modifier</button></td>
-            <td><button @click="submitDeleteShow(concert)">Supprimer</button></td>
-          </tr>
-        </tbody>
-      </table>
-
-
-      <form class="adduserform" @submit.prevent="submitAddShow">
-        <h1>Ajouter un concert :</h1>
-        <label for="group">Nom du groupe : </label>
-        <input type="text" id="group" v-model="addShowFormData.group" required>
-        <br>
-        <label for="date">Date du concert : </label>
-        <input id="date" placeholder="année.mois.jour" v-model="addShowFormData.date" required>
-        <br>
-        <label for="genre">Genre : </label>
-        <input type="text" id="genre" v-model="addShowFormData.genre" required>
-        <br>
-        <label for="price">Prix : </label>
-        <input type="number" id="price" v-model="addShowFormData.price" required>
-        <br>
-        <button type="submit">Ajouter</button>
-      </form>
-
+      <div class="concert" v-for="concert in concerts" :key="concert._id">
+        <p>Nom du groupe :</p>
+        <input v-model="concert.group" />
+        <p>Date du concert :</p>
+        <input v-model="concert.date" />
+        <p>Genre :</p>
+        <input v-model="concert.genre" />
+        <p>Prix :</p>
+        <input v-model="concert.price" />
+        <button @click="submitEditShow(concert._id)">Modifier</button>
+        <button @click="submitDeleteShow(concert._id)">Supprimer</button>
+      </div>
     </div>
 
     <div class="users-container">
-      <h1>Liste des utilisateurs :</h1>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>Admin</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="user in users" :key="user.id">
-            <td><input v-model="user.email" required /></td>
-            <td><input v-model="user.is_admin" type="checkbox" required /></td>
-            <td><button @click="submitEditUser(user)">Modifier</button></td>
-            <td><button @click="submitDeleteUser(user)">Supprimer</button></td>
-          </tr>
-        </tbody>
-      </table>
+      <h1>Liste des users :</h1>
+      <div class="user" v-for="user in users" :key="user._id">
+        <p>Username :</p>
+        <input v-model="user.username" />
+        <p>Email :</p>
+        <input v-model="user.email" />
+        <p>Admin ?</p>
+        <input v-model="user.is_admin" />
+        <button @click="submitEditUser(user._id)">Modifier</button>
+        <button @click="submitDeleteUser(user._id)">Supprimer</button>
+      </div>
 
     </div>
     
@@ -232,27 +189,72 @@ fetchConcerts();
 
 <style scoped>
 .users-concerts-dashboard-grid {
-  text-align: center;
   display: grid;
-  grid-template-columns: 60% 40%;
-  max-width: 100%;
-  background-color: rgb(22, 22, 22);
-}
-
-.concerts-container {
-  overflow-y: auto;
-  max-height: 80%;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
   margin-left: 20%;
 }
 
+.concerts-container,
 .users-container {
-  margin-left: 10%;
-  overflow-y: auto;
-  max-height: 45%;
+  background-color: #383636;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.adduserform {
+.concerts-container h1,
+.users-container h1 {
   text-align: center;
-  margin-top: 2rem;
+  margin-bottom: 20px;
+}
+
+.concert,
+.user {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.concert p,
+.user p {
+  margin: 0;
+}
+
+.concert input,
+.user input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.concert button,
+.user button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.concert button:last-child,
+.user button:last-child {
+  background-color: #f44336;
+}
+
+.concert button:hover,
+.user button:hover {
+  background-color: #3e8e41;
+}
+
+.concert button:last-child:hover,
+.user button:last-child:hover {
+  background-color: #c62828;
 }
 </style>

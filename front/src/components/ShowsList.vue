@@ -6,6 +6,10 @@ const concerts = ref([]);
 
 // AFFICHER LES CONCERTS
 const fetchConcerts = async () => {
+  //const response1 = await fetch("http://localhost:3000/concerts");
+  //const data = await response1.json();
+  //concerts.value = data;
+  //console.log("Liste des concerts :", concerts.value);
   try {
     const response = await fetch('http://localhost:3000/concerts');
     if (!response.ok) {
@@ -38,6 +42,16 @@ fetchConcerts();
 
 <template>
   <div class="concerts-container">
+    //<div
+      //class="concert"
+      //v-for="concert in concerts"
+      //:key="concert.id"
+     // @click="goToConcert(concert.id)"
+    //>
+     // <h1>{{ concert.group }}</h1>
+      //<p>{{ concert.date }}</p>
+      //<p>{{ concert.genre }}</p>
+     // <p>{{ concert.price }}</p>
     <div class="concert" v-for="concert in concerts" :key="concert.id">
       <h2> {{ concert.group }} </h2>
       <p> En concert le {{ concert.date }} </p>
