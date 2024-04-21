@@ -6,10 +6,6 @@ export class UpdateUserDto {
   is_admin?: string;
 
   @IsOptional()
-  @IsString()
-  username?: string;
-
-  @IsOptional()
   @IsEmail()
   email?: string;
 
@@ -18,14 +14,14 @@ export class UpdateUserDto {
   password?: string;
 
   @IsOptional()
-  @IsString()
-  favorite_groups?: string;
+  @IsString({each: true})
+  wishlist?: string[];
 
   @IsOptional()
-  @IsString()
-  wishlist?: string;
+  @IsString({each: true})
+  notify?: string[];
 
   @IsOptional()
-  @IsString()
-  booked?: string;
+  @IsString({each: true})
+  booked?: string[];
 }

@@ -3,10 +3,6 @@ import { IsOptional, IsString } from 'class-validator';
 export class UpdateConcertDto {
   @IsOptional()
   @IsString()
-  title?: string;
-
-  @IsOptional()
-  @IsString()
   genre?: string;
 
   @IsOptional()

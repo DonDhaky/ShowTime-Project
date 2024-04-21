@@ -1,10 +1,7 @@
 import { IsString } from 'class-validator';
 
 export class CreateConcertDto {
-  @IsString()
-  title: string;
-
-  @IsString()
+ @IsString()
   genre: string;
 
   @IsString()

@@ -12,20 +12,17 @@ export class User {
   @Prop()
   is_admin: string;
 
-  @Prop()
-  username: string;
-
-  @Prop()
+  @Prop({ unique: true })
   email: string;
 
   @Prop()
   password: string;
 
   @Prop()
-  favorite_groups: string;
+  wishlist: string;
 
   @Prop()
-  wishlist: string;
+  notify: string;
 
   @Prop()
   booked: string;

@@ -9,9 +9,6 @@ export class Concert {
   id: string;
 
   @Prop()
-  title: string;
-
-  @Prop()
   genre: string;
 
   @Prop()
