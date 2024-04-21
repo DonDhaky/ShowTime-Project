@@ -29,8 +29,8 @@ const clearPlaceholder = () => {
       <RouterLink to="/login">Connexion</RouterLink>
       <RouterLink to="/home" @click="logout">Déconnexion</RouterLink>
       <RouterLink to="/register">Inscription</RouterLink>
-      <RouterLink to="/wishlist">Favoris</RouterLink>
-      <RouterLink to="/card">Panier</RouterLink>
+      <RouterLink to="/wishlist">Wishlist</RouterLink>
+      <RouterLink to="/card">Réservations</RouterLink>
       <RouterLink to="/admindashboard">Admin</RouterLink>
     </nav>
 
