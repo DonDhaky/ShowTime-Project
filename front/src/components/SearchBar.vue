@@ -1,15 +1,21 @@
 <script >
 export default {
+  props: {
+    concerts: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       searchQuery: '',
-      concerts: [],
+      // concerts: [],
     };
   },
   async created() {
-    const response = await fetch('http://localhost:3000/concerts');
-    const data = await response.json();
-    this.concerts = data;
+    // const response = await fetch('http://localhost:3000/concerts');
+    // const data = await response.json();
+    // this.concerts = data;
   },
   computed: {
     filteredConcerts() {
@@ -74,37 +80,6 @@ export default {
 
 <style scoped>
 
-
-/* nav a.router-link-exact-active {
-  color: var(--color-text);
-} */
-
-/* nav a.router-link-exact-active:hover {
-  background-color: transparent;
-} */
-
-/* nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-} */
-
-/* nav a:first-of-type {
-  border: 0;
-} */
-
-/* nav {
-  text-align: center;
-  padding: 1rem 0;
-} */
-
-/* .showslist {
-  text-align: left;
-  margin-left: 30%;
-  margin-top: 10%;
-  margin-right: 2rem;
-} */
-
 .concert {
     color: #383636;
     
@@ -159,26 +134,6 @@ export default {
   cursor: pointer;
 }
 
-/* .filters {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 200px;
-  padding: 20px;
-  background-color: #383636;
-  color: var(--color-text);
-} */
-
-/* .filter {
-  margin-bottom: 20px;
-} */
-
-/* .filter label {
-  display: block;
-  margin-bottom: 5px;
-} */
-
 .users-concerts-dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -213,35 +168,4 @@ export default {
   margin-bottom: 20px;
 }
 
-/* .concert p {
-  margin: 0;
-} */
-
-/* .concert input {
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 10px;
-} */
-
-/* .concert button {
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  margin-right: 10px;
-} */
-
-/* .concert button:last-child {
-  background-color: #f44336;
-} */
-
-/* .concert button:hover {
-  background-color: #3e8e41;
-} */
-
-/* .concert button:last-child:hover {
-  background-color: #c62828;
-} */
 </style>

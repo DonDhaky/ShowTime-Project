@@ -196,7 +196,7 @@ const submitDeleteShow = async (id) => {
 
 .concerts-container,
 .users-container {
-  background-color: #fff;
+  background-color: #383636;
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);

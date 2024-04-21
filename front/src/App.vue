@@ -1,5 +1,5 @@
 <script >
-import Filter from './components/Filter.vue';
+import Filter from './components/SearchBar.vue';
 
 export default {
   components: {
@@ -7,6 +7,7 @@ export default {
   },
   data() {
     return {
+      selectedGroup: "Tous",
       searchQuery: '',
       concerts: [],
     };
@@ -25,6 +26,11 @@ export default {
     },
   },
   methods: {
+    async getConcertsByGroup() {
+    const response = await fetch(`http://localhost:3000/concerts/bygroup/${this.selectedGroup}`);
+    const data = await response.json();
+    this.concerts = data;
+  },
     clearPlaceholder() {
       if (this.searchQuery === 'Faites votre recherche ici...') {
         this.searchQuery = '';
@@ -47,7 +53,7 @@ export default {
       <RouterLink to="/admindashboard">Admin</RouterLink>
     </nav>
 
-<Filter/>
+<Filter :concerts="concerts"/>
 
     <RouterView />
   </div>
@@ -57,17 +63,17 @@ export default {
       <label for="genre">Genre:</label>
       <select v-model="selectedGenre">
         <option value="all">Tous</option>
-        <option value="classique">Classique</option>
-        <option value="jazz">Jazz</option>
+        <option value="TripHop">Trip Hop</option>
+        <option value="PsychedelicRock">psychedelic rock</option>
         <option value="Pop Rock">Jazz</option>
       </select>
     </div>
     <div class="filter">
       <label for="group">Groupe:</label>
-      <select v-model="selectedGroup">
+      <select v-model="selectedGroup" @change="getConcertsByGroup"  >
         <option value="all">Tous</option>
-        <option value="group1">Groupe 1</option>
-        <option value="group2">Groupe 2</option>
+        <option value="Massive Attack">Massive Attack</option>
+        <option value="Sweet Smoke">Sweet Smoke</option>
       </select>
     </div>
     <div class="filter">
@@ -88,6 +94,12 @@ export default {
 
 <style scoped>
 
+/* .wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+} */
 
 nav a.router-link-exact-active {
   color: var(--color-text);
