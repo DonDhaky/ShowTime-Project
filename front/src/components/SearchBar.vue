@@ -47,14 +47,22 @@ export default {
     <div class="concerts-container">
       <h1>Liste des concerts :</h1>
       <div class="concert" v-for="concert in filteredConcerts" :key="concert._id">
-        <p>Nom du groupe :</p>
-        <input v-model="concert.group" />
-        <p>Date du concert :</p>
-        <input v-model="concert.date" />
-        <p>Genre :</p>
-        <input v-model="concert.genre" />
-        <p>Prix :</p>
-        <input v-model="concert.price" />
+        <p>
+        <span class="concert2"> Nom du groupe : </span> 
+        <span class="concert3"> {{concert.group}}</span>
+        </p> 
+        <p>
+        <span class="concert2"> Date du concert : </span> 
+        <span class="concert3"> {{concert.date}}</span>
+        </p> 
+        <p>
+        <span class="concert2"> Genre : </span> 
+        <span class="concert3"> {{concert.genre}}</span>
+        </p> 
+        <p>
+        <span class="concert2"> Prix : </span> 
+        <span class="concert3"> {{concert.price}}</span>
+        </p> 
         <!-- <button @click="submitEditShow(concert._id)">Modifier</button>
         <button @click="submitDeleteShow(concert._id)">Supprimer</button> -->
       </div>
@@ -67,34 +75,48 @@ export default {
 <style scoped>
 
 
-nav a.router-link-exact-active {
+/* nav a.router-link-exact-active {
   color: var(--color-text);
-}
+} */
 
-nav a.router-link-exact-active:hover {
+/* nav a.router-link-exact-active:hover {
   background-color: transparent;
-}
+} */
 
-nav a {
+/* nav a {
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
-}
+} */
 
-nav a:first-of-type {
+/* nav a:first-of-type {
   border: 0;
-}
+} */
 
-nav {
+/* nav {
   text-align: center;
   padding: 1rem 0;
-}
+} */
 
-.showslist {
+/* .showslist {
   text-align: left;
   margin-left: 30%;
   margin-top: 10%;
   margin-right: 2rem;
+} */
+
+.concert {
+    color: #383636;
+    
+}
+
+.concert2 {
+    color: black;
+    font-weight: bold
+}
+
+.concert3 {
+    color: grey;
 }
 
 /* rendre le text blanc dans la search bar */
@@ -137,7 +159,7 @@ nav {
   cursor: pointer;
 }
 
-.filters {
+/* .filters {
   position: fixed;
   top: 0;
   left: 0;
@@ -146,16 +168,16 @@ nav {
   padding: 20px;
   background-color: #383636;
   color: var(--color-text);
-}
+} */
 
-.filter {
+/* .filter {
   margin-bottom: 20px;
-}
+} */
 
-.filter label {
+/* .filter label {
   display: block;
   margin-bottom: 5px;
-}
+} */
 
 .users-concerts-dashboard-grid {
   display: grid;
@@ -164,12 +186,13 @@ nav {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  margin-left: 20%;
+  margin-left: 35%;
+  width: 100%;
 }
 
 
 .concerts-container {
-  background-color: #fff;
+  background-color: #444;
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -178,6 +201,9 @@ nav {
 .concerts-container h1 {
   text-align: center;
   margin-bottom: 20px;
+  background: transparent;
+  color: #fff; 
+  /* liste des concerts : */
 }
 
 .concert {
@@ -187,17 +213,17 @@ nav {
   margin-bottom: 20px;
 }
 
-.concert p {
+/* .concert p {
   margin: 0;
-}
+} */
 
-.concert input {
+/* .concert input {
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
-}
+} */
 
-.concert button {
+/* .concert button {
   background-color: #4caf50;
   color: #fff;
   border: none;
@@ -205,17 +231,17 @@ nav {
   padding: 10px;
   cursor: pointer;
   margin-right: 10px;
-}
+} */
 
-.concert button:last-child {
+/* .concert button:last-child {
   background-color: #f44336;
-}
+} */
 
-.concert button:hover {
+/* .concert button:hover {
   background-color: #3e8e41;
-}
+} */
 
-.concert button:last-child:hover {
+/* .concert button:last-child:hover {
   background-color: #c62828;
-}
+} */
 </style>
