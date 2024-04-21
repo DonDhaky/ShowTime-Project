@@ -3,18 +3,17 @@ import { ref } from 'vue'
 
 // SHOWS VARIABLES
 const concerts = ref([])
-const genre = ref('')
-const group = ref('')
-const date = ref('')
-const price = ref('')
-const number_of_bookings = ref('')
+const addShowFormData = ref({
+  group: '',
+  date: '',
+  genre: '',
+  price: '',
+  number_of_bookings: ''
+})
 
 // USERS VARIABLES
 const users = ref([])
-const email = ref('')
-const is_admin = ref('')
-// const wishlist = ref([])
-// const booked = ref([])
+
 
 // AFFICHER LES USERS //////////////////////////////////////////////////////////////////////////// 
 const fetchUsers = async () => {
@@ -25,21 +24,49 @@ const fetchUsers = async () => {
     }
     const dataUsers = await response.json();
     users.value = dataUsers;
-    console.log('Liste des utilisateurs :', users.value);
+    console.log('Liste des users :', users.value);
   } catch (error) {
     console.log(error);
   }
 };
 
-// EDIT UN USER
-const submitEditUser = () => {
-  //
-}
+// EDIT UN USER //////////////////////////////////////////////////////// A MODIFIER
+const submitEditUser = async (user) => {
+  try {
+    const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: JSON.stringify(user),
+    });
+    if (!response.ok) {
+      throw new Error("Une erreur a été rencontrée lors de la tentative de modification du user.");
+    }
+    console.log('Utilisateur modifié :', user);
+    alert('Le user a été modifié avec succès !');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// DELETE UN USER
-const submitDeleteUser = () => {
-  //
-}
+// DELETE UN USER //////////////////////////////////////////////////////// A MODIFIER
+const submitDeleteUser = async (user) => {
+  try {
+    const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error("Une erreur a été rencontrée lors de la tentative de suppression du user.");
+    }
+    const index = users.value.indexOf(user); // A CHANGER ??
+    users.value.splice(index, 1); // A CHANGER ??
+    console.log('User supprimé :', user);
+    alert('Le user a été supprimé avec succès !');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
 // AFFICHER LES CONCERTS //////////////////////////////////////////////////////////////////////////////
@@ -59,18 +86,71 @@ const fetchConcerts = async () => {
 
 // AJOUTER UN CONCERT
 const submitAddShow = () => {
-  //
-}
+  const formData = new URLSearchParams();
+  formData.append('group', addShowFormData.value.group);
+  formData.append('date', addShowFormData.value.date);
+  formData.append('genre', addShowFormData.value.genre);
+  formData.append('price', addShowFormData.value.price);
+  formData.append('number_of_bookings', addShowFormData.value.number_of_bookings);
 
-// MODIFIER UN CONCERT
-const submitEditShow = () => {
-  //
-}
 
-// SUPPRIMER UN CONCERT
-const submitDeleteShow = () => {
-  //
-}
+  fetch('http://localhost:3000/concerts/schedule', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: formData
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Une erreur a été rencontrée lors de la tentative d'ajout du concert.");
+    }
+    console.log('Concert ajouté avec succès !');
+    alert('Le concert a été ajouté avec succès !');
+    window.location.href = 'http://localhost:5173/admindashboard';
+  })
+  .catch(error => {
+    console.log(error);
+  });
+};
+
+// MODIFIER UN CONCERT //////////////////////////////////////////////////////// A MODIFIER
+const submitEditShow = async (concert) => {
+  try {
+    const response = await fetch(`http://localhost:3000/concerts/${concert.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: JSON.stringify(concert),
+    });
+    if (!response.ok) {
+      throw new Error("Une erreur a été rencontrée lors de la tentative de modification du concert.");
+    }
+    console.log('Concert modifié :', concert);
+    alert('Le concert a été modifié avec succès !');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// SUPPRIMER UN CONCERT //////////////////////////////////////////////////////// A MODIFIER
+const submitDeleteShow = async (concert) => {
+  try {
+    const response = await fetch(`http://localhost:3000/concerts/${concert.id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error("Une erreur a été rencontrée lors de la tentative de suppression du concert.");
+    }
+    const index = concerts.value.indexOf(concert); // A CHANGER ??
+    concerts.value.splice(index, 1); // A CHANGER ??
+    console.log('Concert supprimé :', concert);
+    alert('Le concert a été supprimé avec succès !');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 fetchUsers();
 fetchConcerts();
@@ -103,6 +183,24 @@ fetchConcerts();
           </tr>
         </tbody>
       </table>
+
+
+      <form class="adduserform" @submit.prevent="submitAddShow">
+        <h1>Ajouter un concert :</h1>
+        <label for="group">Nom du groupe : </label>
+        <input type="text" id="group" v-model="addShowFormData.group" required>
+        <br>
+        <label for="date">Date du concert : </label>
+        <input id="date" placeholder="année.mois.jour" v-model="addShowFormData.date" required>
+        <br>
+        <label for="genre">Genre : </label>
+        <input type="text" id="genre" v-model="addShowFormData.genre" required>
+        <br>
+        <label for="price">Prix : </label>
+        <input type="number" id="price" v-model="addShowFormData.price" required>
+        <br>
+        <button type="submit">Ajouter</button>
+      </form>
 
     </div>
 
@@ -138,18 +236,23 @@ fetchConcerts();
   display: grid;
   grid-template-columns: 60% 40%;
   max-width: 100%;
+  background-color: rgb(22, 22, 22);
 }
 
 .concerts-container {
   overflow-y: auto;
-  max-height: 57%;
+  max-height: 80%;
   margin-left: 20%;
 }
 
-
 .users-container {
+  margin-left: 10%;
   overflow-y: auto;
-  max-height: 57%;
+  max-height: 45%;
 }
 
+.adduserform {
+  text-align: center;
+  margin-top: 2rem;
+}
 </style>
